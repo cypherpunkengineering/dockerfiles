@@ -57,5 +57,11 @@ COPY tools /opt/tools
 ENV PATH ${PATH}:/opt/tools
 RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --no-ui --all --filter platform-tools,build-tools-24.0.1,build-tools-23.0.2,android-24,android-23,extra-android-m2repository,extra-google-m2repository"]
 
+# Install Android NDK
+ENV ANDROID_NDK_VERSION=r12b
+RUN wget -q https://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip && \
+	unzip android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
+ENV ANDROID_NDK_HOME="${PWD}/android-ndk-${ANDROID_NDK_VERSION}"
+ENV PATH $PATH:${ANDROID_NDK_HOME}
 
 ENV DEBIAN_FRONTEND dialog
