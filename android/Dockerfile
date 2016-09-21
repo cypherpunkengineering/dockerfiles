@@ -59,7 +59,7 @@ RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --no-ui --all 
 
 # Install Android NDK
 ENV ANDROID_NDK_VERSION=r12b
-RUN wget -q https://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip && \
+RUN wget -q http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip && \
 	unzip android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
 ENV ANDROID_NDK_HOME="${PWD}/android-ndk-${ANDROID_NDK_VERSION}"
 ENV PATH $PATH:${ANDROID_NDK_HOME}
