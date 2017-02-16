@@ -5,7 +5,7 @@
 FROM debian:jessie
 
 
-MAINTAINER Yui Matsuura "yui@uphyca.com"
+MAINTAINER J. Maurice "jmaurice@cypherpunk.com"
 
 
 ENV DEBIAN_FRONTEND noninteractive
