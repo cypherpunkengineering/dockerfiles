@@ -10,6 +10,15 @@ MAINTAINER J. Maurice "jmaurice@cypherpunk.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
+# install common deps
+RUN apt-get update -y apt-get install -y --force-yes --no-install-recommends && \
+	curl \
+	expect \
+	ca-certificates \
+	lsb-release \
+	apt-transport-https \
+	unzip
+
 
 # Install Oracle Java8.
 # http://www.webupd8.org/2014/03/how-to-install-oracle-java-8-in-debian.html
@@ -42,11 +51,7 @@ ENV GRADLE_HOME=/usr/lib/gradle/2.14/ \
 ENV ANDROID_SDK_URL=http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz \
 	ANDROID_HOME=/opt/android-sdk-linux \
 	ANDROID_SDK=/opt/android-sdk-linux
-RUN apt-get update -y && \
-	apt-get install -y --force-yes --no-install-recommends curl expect && \
-	curl -L ${ANDROID_SDK_URL} | tar --no-same-owner -xz -C /opt && \
-	apt-get autoremove -y --purge curl && \
-	apt-get clean && rm -rf /var/cache/apt/archives/* /var/lib/apt/lists/*
+RUN curl -L ${ANDROID_SDK_URL} | tar --no-same-owner -xz -C /opt
 ENV PATH $ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 
 
@@ -55,21 +60,21 @@ COPY tools /opt/tools
 ENV PATH ${PATH}:/opt/tools
 RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --no-ui --all --filter platform-tools,build-tools-25.0.0,android-24,android-23,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services"]
 
+
 # Install Android NDK
 ENV ANDROID_NDK_VERSION=r12b
-RUN apt-get update -y && \
-	apt-get install  -y --force-yes --no-install-recommends unzip && \
-	wget -q http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip && \
+RUN wget -q http://dl.google.com/android/repository/android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip && \
 	unzip android-ndk-${ANDROID_NDK_VERSION}-linux-x86_64.zip
 ENV ANDROID_NDK_HOME="${PWD}/android-ndk-${ANDROID_NDK_VERSION}"
 ENV PATH $PATH:${ANDROID_NDK_HOME}
 
+
 # Install Google Cloud SDK
-RUN apt-get install -y --force-yes --no-install-recommends curl ca-certificates lsb-release && \
-    export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
-    echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
-    apt-get update && \
-    apt-get install google-cloud-sdk
+RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
+	echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+	apt-get update -y && \
+	apt-get install -y --force-yes --no-install-recommends google-cloud-sdk
+
 
 ENV DEBIAN_FRONTEND dialog
