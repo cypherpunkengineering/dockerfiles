@@ -65,7 +65,7 @@ ENV ANDROID_NDK_HOME="${PWD}/android-ndk-${ANDROID_NDK_VERSION}"
 ENV PATH $PATH:${ANDROID_NDK_HOME}
 
 # Install Google Cloud SDK
-RUN apt-get install -y --force-yes --no-install-recommends curl lsb-release && \
+RUN apt-get install -y --force-yes --no-install-recommends curl ca-certificates lsb-release && \
     export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
     echo "deb https://packages.cloud.google.com/apt $CLOUD_SDK_REPO main" | tee -a /etc/apt/sources.list.d/google-cloud-sdk.list && \
     curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
