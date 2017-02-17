@@ -11,7 +11,7 @@ MAINTAINER J. Maurice "jmaurice@cypherpunk.com"
 ENV DEBIAN_FRONTEND noninteractive
 
 # install common deps
-RUN apt-get update -y && apt-get install -y --force-yes --no-install-recommends && \
+RUN apt-get update -y && apt-get install -y --force-yes --no-install-recommends \
 	curl \
 	expect \
 	ca-certificates \
