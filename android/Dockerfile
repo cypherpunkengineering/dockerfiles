@@ -71,7 +71,4 @@ RUN export CLOUD_SDK_REPO="cloud-sdk-$(lsb_release -c -s)" && \
 	sudo apt-get update && \
 	sudo apt-get install google-cloud-sdk
 
-# Get GCS credentials from environment
-RUN echo "${gsutil_credstore}"|base64 -d|tar -C $HOME -zxf -
-
 ENV DEBIAN_FRONTEND dialog
