@@ -5,7 +5,7 @@
 FROM debian:jessie
 
 
-MAINTAINER J. Maurice "jmaurice@cypherpunk.com"
+MAINTAINER Satoshi "satoshi@cypherpunk.com"
 
 
 ENV DEBIAN_FRONTEND noninteractive
