@@ -58,7 +58,7 @@ ENV PATH $ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 # Install Android packages.
 COPY tools /opt/tools
 ENV PATH ${PATH}:/opt/tools
-RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --no-ui --all --filter platform-tools,build-tools-25.0.0,android-24,android-23,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services"]
+RUN ["/opt/tools/android-accept-licenses.sh", "android update sdk --no-ui --all --filter platform-tools,build-tools-25.0.0,android-24,android-23,extra-android-m2repository,extra-google-m2repository,extra-google-google_play_services", "sdkmanager 'extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2'"]
 
 
 # Install Android NDK
