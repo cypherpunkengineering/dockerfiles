@@ -54,6 +54,11 @@ ENV ANDROID_SDK_URL=http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz \
 RUN curl -L ${ANDROID_SDK_URL} | tar --no-same-owner -xz -C /opt
 ENV PATH $ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$PATH
 
+# Install new Android tools
+RUN rm -rf $ANDROID_HOME/tools
+RUN wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip && \
+	unzip sdk-tools-linux-3859397.zip -d $ANDROID_HOME
+
 
 # Install Android packages.
 COPY tools /opt/tools
