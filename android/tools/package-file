@@ -1,0 +1,8 @@
+platform-tools
+build-tools;25.0.0
+platforms;android-24
+platforms;android-25
+extras;android;m2repository
+extras;google;m2repository
+extras;google;google_play_services
+extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2
