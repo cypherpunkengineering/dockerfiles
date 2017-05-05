@@ -61,11 +61,10 @@ RUN wget -q http://dl.google.com/android/repository/sdk-tools-linux-3859397.zip 
 
 
 # Install Android packages.
-COPY tools /opt/tools
 RUN mkdir $ANDROID_HOME/licenses
-COPY tools/android-sdk-license $ANDROID_HOME/licenses
-ENV PATH ${PATH}:$ANDROID_HOME/tools/bin:/opt/tools
-# RUN ["/opt/tools/android-accept-licenses2.sh", "sdkmanager --package_file=/opt/tools/package-file --verbose"]
+COPY licenses/android-sdk-license $ANDROID_HOME/licenses
+COPY tools /opt/tools
+ENV PATH ${PATH}:$ANDROID_HOME/tools/bin
 RUN sdkmanager --package_file=/opt/tools/package-file --verbose
 
 
